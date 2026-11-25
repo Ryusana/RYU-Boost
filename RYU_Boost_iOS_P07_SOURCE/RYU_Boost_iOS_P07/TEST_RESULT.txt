@@ -1,0 +1,10 @@
+6 parser cases PASS; no live network used
+7 scoring cases PASS; HTTPS timing simulation only
+12 health cases PASS; simulated runtime counters, no live network
+9 catalog cases PASS; simulated keychain refs only
+9 node ranking cases PASS; simulated HTTPS, not game latency
+20 selective route cases PASS; simulated addresses, no iOS route verification
+24 OpenVPN profile/catalog cases PASS; no actual certificates or adapter execution
+19 auth/storage cases PASS; synthetic data only
+10 lifecycle sequences PASS; pure reducer, not SDK callbacks
+Syntax parse PASS (not iOS SDK typecheck)

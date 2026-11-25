@@ -1,0 +1,4 @@
+# AmneziaWG — feasibility gate
+Upstream: https://github.com/amnezia-vpn/amneziawg-apple (MIT, see upstream license)
+Package: https://github.com/amnezia-vpn/amneziawg-apple/blob/master/Package.swift
+Both the stock and fork packages expose WireGuardKit and native wg-go library names. Do not link both as-is into one extension: module/library identity collisions are a risk. Prefer an isolated AWG extension or a separately built experimental variant after stock build passes. Need compare upstream API and pin revisions before implementation. AWG profiles contain additional protocol fields; do not strip these or send AWG configs to stock WG. Need provider-authorized AWG peer/profile and real tests. Existing parser rejects unsupported fields intentionally. No AWG support added in P07; no assumption that AWG improves ping.
