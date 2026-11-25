@@ -1,0 +1,89 @@
+name: iOS compile check (unsigned)
+
+on:
+  workflow_dispatch:
+    inputs:
+      engine:
+        description: 'Select VPN engine'
+        type: choice
+        options: [wireguard, openvpn]
+        default: wireguard
+
+permissions:
+  contents: read
+
+jobs:
+  compile:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.19.13'
+
+      - name: Install generator
+        run: brew install xcodegen
+
+      - name: Compile and link
+        env:
+          ENGINE: ${{ inputs.engine }}
+        run: bash BUILD_IOS_CHECK.sh "$ENGINE"
+
+      - name: Upload diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ryu-ios-build-diagnostic
+          path: |
+            build-check/*/build.log
+            build-check/*/status.txt
+            build-check/*/Package.resolved
+            build-check/*/wireguard-revision.txt
+          if-no-files-found: warnname: iOS compile check (unsigned)
+
+on:
+  workflow_dispatch:
+    inputs:
+      engine:
+        description: 'Select VPN engine'
+        type: choice
+        options: [wireguard, openvpn]
+        default: wireguard
+
+permissions:
+  contents: read
+
+jobs:
+  compile:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.19.13'
+
+      - name: Install generator
+        run: brew install xcodegen
+
+      - name: Compile and link
+        env:
+          ENGINE: ${{ inputs.engine }}
+        run: bash BUILD_IOS_CHECK.sh "$ENGINE"
+
+      - name: Upload diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ryu-ios-build-diagnostic
+          path: |
+            build-check/*/build.log
+            build-check/*/status.txt
+            build-check/*/Package.resolved
+            build-check/*/wireguard-revision.txt
+          if-no-files-found: warn
